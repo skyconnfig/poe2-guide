@@ -1,0 +1,122 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Ad from "../components/Ad.astro";
+import TOC from "../components/TOC.astro";
+import type { MarkdownInstance } from "astro";
+
+export interface Props {
+  content: MarkdownInstance<Record<string, any>>;
+  canonical: string;
+}
+
+const { content, canonical } = Astro.props;
+const { frontmatter } = content;
+const { title, description, date, author, category, tags } = frontmatter;
+const ogImage = frontmatter.image || "/images/og-default.svg";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogType="article"
+  ogImage={ogImage}
+  publishedTime={date}
+  author={author}
+  articleSection={category}
+  tags={tags}
+>
+  <div class="container-custom py-8">
+    <!-- Top Banner Ad -->
+    <Ad variant="banner" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 mt-8">
+      <!-- Main Content -->
+      <article class="min-w-0">
+        <!-- Header -->
+        <header class="mb-8">
+          <div class="flex items-center gap-3 text-sm text-poe-text-secondary mb-4">
+            <time datetime={date}>
+              {new Date(date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <span class="w-1 h-1 rounded-full bg-poe-border"></span>
+            <span>{author}</span>
+            <span class="w-1 h-1 rounded-full bg-poe-border"></span>
+            <span class="px-3 py-1 text-xs font-semibold bg-poe-accent/20 text-poe-accent rounded-full">
+              Guide
+            </span>
+          </div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-orbitron font-bold text-white leading-tight">
+            {title}
+          </h1>
+        </header>
+
+        <!-- TOC -->
+        <TOC content={content} />
+
+        <!-- In-content ad after TOC -->
+        <Ad variant="in-content" />
+
+        <!-- Content -->
+        <div class="prose prose-invert prose-poe max-w-none">
+          <slot />
+        </div>
+
+        <!-- Tags -->
+        {tags && tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-8 pt-8 border-t border-poe-border/30">
+            {tags.map((tag: string) => (
+              <span class="px-3 py-1 text-sm bg-poe-card/50 text-poe-text-secondary rounded-full hover:bg-poe-primary/20 hover:text-poe-primary transition-colors">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Bottom in-content ad -->
+        <div class="mt-8">
+          <Ad variant="in-content" />
+        </div>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="hidden lg:block space-y-8">
+        <div class="sticky top-24 space-y-8">
+          <!-- Related Guides -->
+          <div class="card p-6">
+            <h3 class="font-orbitron text-lg font-bold text-white mb-4">
+              Popular Guides
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a href="/guides/how-to-farm-gold" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-poe-accent"></span>
+                  How To Farm Gold
+                </a>
+              </li>
+              <li>
+                <a href="/guides/fast-xp-guide" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-poe-accent"></span>
+                  Fast XP Guide
+                </a>
+              </li>
+              <li>
+                <a href="/guides/best-beginner-tips" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-poe-accent"></span>
+                  Best Beginner Tips
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sidebar Ad -->
+          <Ad variant="sidebar" />
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

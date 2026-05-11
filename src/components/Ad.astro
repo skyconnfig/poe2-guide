@@ -1,0 +1,49 @@
+---
+export interface Props {
+  variant?: "banner" | "in-content" | "sidebar";
+}
+
+const { variant = "banner" } = Astro.props;
+
+const adConfig = {
+  banner: {
+    wrapperClass: "w-full min-h-[90px] md:min-h-[120px] my-4",
+    placeholder: "Ad Space (728x90)",
+    placeholderDesktop: true,
+  },
+  "in-content": {
+    wrapperClass: "w-full min-h-[90px] my-8",
+    placeholder: "In-Content Ad",
+    placeholderDesktop: false,
+  },
+  sidebar: {
+    wrapperClass: "w-full min-h-[250px]",
+    placeholder: "Ad Space 300x250",
+    placeholderDesktop: false,
+  },
+};
+
+const cfg = adConfig[variant];
+---
+
+<div class="ad-container {cfg.wrapperClass}">
+  <div class="text-center w-full">
+    <p class="ad-label mb-2">Advertisement</p>
+    <!--
+    AdSense Code - Replace with your ad unit code after AdSense approval
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true">
+    </ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+
+    <!-- Placeholder for development -->
+    <div class="flex items-center justify-center w-full h-[90px] md:h-[120px] bg-gradient-to-r from-poe-primary/5 to-poe-accent/5 border border-poe-border/20 rounded-lg">
+      <span class="text-xs text-poe-text-secondary/30">{cfg.placeholder}</span>
+    </div>
+  </div>
+</div>

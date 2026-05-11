@@ -1,0 +1,95 @@
+---
+const builds = [
+  {
+    title: "Best Witch Leveling Build",
+    href: "/builds/best-witch-leveling-build",
+    tag: "Top Rated",
+    difficulty: "Easy",
+  },
+  {
+    title: "Best Ranger Leveling Build",
+    href: "/builds/best-ranger-leveling-build",
+    tag: "Fast Clear",
+    difficulty: "Medium",
+  },
+  {
+    title: "Best Monk Leveling Build",
+    href: "/builds/best-monk-leveling-build",
+    tag: "New",
+    difficulty: "Hard",
+  },
+];
+---
+
+<section class="relative min-h-[80vh] flex items-center overflow-hidden bg-grid">
+  <!-- Background Effects -->
+  <div class="absolute inset-0">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-poe-primary/10 rounded-full blur-[128px]"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-poe-accent/10 rounded-full blur-[128px]"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-poe-primary/5 to-transparent"></div>
+  </div>
+
+  <div class="container-custom relative z-10 pt-20">
+    <div class="max-w-3xl">
+      <!-- Tag -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-poe-primary/10 border border-poe-primary/20 rounded-full mb-6 animate-slide-up">
+        <span class="w-2 h-2 rounded-full bg-poe-accent animate-pulse-slow"></span>
+        <span class="text-xs font-semibold text-poe-accent uppercase tracking-wider">
+          Path of Exile 2 Guides
+        </span>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-orbitron font-extrabold text-white leading-[1.1] mb-6 animate-slide-up" style="animation-delay: 100ms">
+        Master
+        <span class="gradient-text">Wraeclast</span>
+        <br />
+        <span class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">With Expert Builds</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-poe-text-secondary max-w-2xl mb-8 animate-slide-up leading-relaxed" style="animation-delay: 200ms">
+        Discover the best Path of Exile 2 builds, farming strategies, and
+        expert guides. From beginner to endgame — everything you need
+        to conquer Wraeclast.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap gap-4 mb-12 animate-slide-up" style="animation-delay: 300ms">
+        <a href="/builds/best-witch-leveling-build" class="btn-primary group">
+          Browse Builds
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        <a href="/guides/best-beginner-tips" class="btn-outline">
+          Beginner Guide
+        </a>
+      </div>
+
+      <!-- Quick Build Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 animate-slide-up" style="animation-delay: 400ms">
+        {builds.map((build) => (
+          <a
+            href={build.href}
+            class="group card p-4 hover:bg-poe-card/50"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-poe-primary uppercase tracking-wider">
+                {build.tag}
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-poe-primary/10 text-poe-primary">
+                {build.difficulty}
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-white group-hover:text-poe-primary transition-colors">
+              {build.title}
+            </h3>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom gradient fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-poe-bg to-transparent"></div>
+</section>

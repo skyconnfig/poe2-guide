@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-poe-bg text-poe-text font-sans;
+  }
+
+  ::selection {
+    @apply bg-poe-primary/30 text-white;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-poe-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-poe-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-poe-primary/50;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-orbitron;
+  }
+
+  /* Focus styles */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-poe-primary;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-poe-primary hover:bg-poe-primary-dark text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] active:scale-95;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-poe-primary/50 text-poe-primary hover:bg-poe-primary/10 font-semibold rounded-lg transition-all duration-300 active:scale-95;
+  }
+
+  .card {
+    @apply bg-poe-surface border border-poe-border/30 rounded-xl overflow-hidden transition-all duration-300 hover:border-poe-primary/30 hover:shadow-[0_0_15px_rgba(139,92,246,0.1)];
+  }
+
+  .card-hover {
+    @apply card hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(139,92,246,0.15)];
+  }
+
+  .section-title {
+    @apply font-orbitron text-2xl md:text-3xl font-bold text-white;
+  }
+
+  .section-subtitle {
+    @apply text-poe-text-secondary text-base mt-2;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-poe-primary to-poe-accent bg-clip-text text-transparent;
+  }
+
+  .glow-border {
+    @apply relative;
+  }
+
+  .glow-border::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-[1px];
+    background: linear-gradient(90deg, transparent, #8B5CF6, #22C55E, transparent);
+  }
+
+  /* Ad container */
+  .ad-container {
+    @apply flex justify-center items-center min-h-[90px] bg-poe-surface/50 border border-poe-border/20 rounded-lg;
+  }
+
+  .ad-label {
+    @apply text-xs text-poe-text-secondary/50 uppercase tracking-wider;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+}

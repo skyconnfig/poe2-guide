@@ -1,0 +1,95 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  articleSection?: string;
+  tags?: string[];
+  noindex?: boolean;
+  techArticle?: boolean;
+  about?: { name: string; description: string };
+}
+
+const {
+  title,
+  description,
+  canonical = 'https://poe2-guide.vercel.app',
+  ogImage = '/images/og-default.svg',
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  author,
+  articleSection,
+  tags,
+  noindex = false,
+  techArticle = false,
+  about,
+} = Astro.props;
+
+const siteTitle = `${title} | Path of Exile 2 Guide`;
+const siteUrl = canonical;
+---
+
+<!-- Primary Meta Tags -->
+<title>{siteTitle}</title>
+<meta name="title" content={siteTitle} />
+<meta name="description" content={description} />
+<link rel="canonical" href={siteUrl} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={siteUrl} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={`https://poe2-guide.vercel.app${ogImage}`} />
+<meta property="og:site_name" content="Path of Exile 2 Guide" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={siteUrl} />
+<meta name="twitter:title" content={siteTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={`https://poe2-guide.vercel.app${ogImage}`} />
+
+<!-- Article Specific -->
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+{author && <meta name="author" content={author} />}
+{articleSection && <meta property="article:section" content={articleSection} />}
+{tags && tags.map(tag => <meta property="article:tag" content={tag} />)}
+
+<!-- Schema.org WebSite -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": techArticle ? "TechArticle" : ogType === "article" ? "Article" : "WebSite",
+  ...(ogType === "article" || techArticle ? {
+    headline: title,
+    description: description,
+    author: { "@type": "Person", name: author || "ExileGuides" },
+    datePublished: publishedTime,
+    dateModified: modifiedTime || publishedTime,
+    image: `https://poe2-guide.vercel.app${ogImage}`,
+    publisher: {
+      "@type": "Organization",
+      name: "ExileGuides",
+      logo: { "@type": "ImageObject", url: "https://poe2-guide.vercel.app/favicon.svg" }
+    },
+    ...(about ? { about: { "@type": "Thing", name: about.name, description: about.description } } : {})
+  } : {
+    name: "Path of Exile 2 Guide",
+    url: "https://poe2-guide.vercel.app",
+    description: "Ultimate Path of Exile 2 game guide with builds, tips, and strategies.",
+    potentialAction: {
+      "@type": "SearchAction",
+      "target": "https://poe2-guide.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  })
+})} />

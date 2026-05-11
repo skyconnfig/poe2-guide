@@ -1,0 +1,171 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import Ad from "../components/Ad.astro";
+
+// Import and process all content
+const buildEntries = Object.entries(import.meta.glob("../content/builds/*.md", { eager: true }));
+const guideEntries = Object.entries(import.meta.glob("../content/guides/*.md", { eager: true }));
+
+const builds = buildEntries.map(([path, mod]: [string, any]) => {
+  const slug = path.split(/[/\\]/).pop()?.replace(".md", "") || "";
+  return { ...mod, href: `/builds/${slug}` };
+});
+
+const guides = guideEntries.map(([path, mod]: [string, any]) => {
+  const slug = path.split(/[/\\]/).pop()?.replace(".md", "") || "";
+  return { ...mod, href: `/guides/${slug}` };
+});
+
+const sortedBuilds = builds.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+const sortedGuides = guides.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+const categories = [
+  { name: "Leveling Builds", icon: "⚔️", description: "Fast leveling from 1-100", href: "/builds/best-witch-leveling-build" },
+  { name: "Endgame Builds", icon: "👑", description: "Mapping and boss killing", href: "/builds/best-ranger-leveling-build" },
+  { name: "Farming Guides", icon: "💰", description: "Currency and item farming", href: "/guides/how-to-farm-gold" },
+  { name: "Beginner Tips", icon: "📖", description: "Start your journey right", href: "/guides/best-beginner-tips" },
+];
+---
+
+<BaseLayout
+  title="Path of Exile 2 Guide - Best Builds & Strategies"
+  description="Ultimate Path of Exile 2 guide database. Expert builds, farming strategies, leveling guides, and tips to conquer Wraeclast. Updated for the latest patch."
+>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Section: Popular Builds -->
+  <section class="relative py-16 md:py-24">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+        <div>
+          <h2 class="section-title">
+            <span class="text-poe-primary">&lt;</span> Popular Builds <span class="text-poe-primary">/&gt;</span>
+          </h2>
+          <p class="section-subtitle">Community-tested builds for every playstyle</p>
+        </div>
+        <a href="/builds/best-witch-leveling-build" class="btn-outline mt-4 md:mt-0 text-sm">
+          View All Builds
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedBuilds.map((build) => (
+          <ArticleCard
+            title={build.frontmatter.title}
+            description={build.frontmatter.description}
+            href={build.href}
+            date={build.frontmatter.date}
+            author={build.frontmatter.author}
+            category={build.frontmatter.category}
+            tags={build.frontmatter.tags}
+            type="build"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad break -->
+  <div class="container-custom">
+    <Ad variant="banner" />
+  </div>
+
+  <!-- Section: Latest Guides -->
+  <section class="relative py-16 md:py-24">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+        <div>
+          <h2 class="section-title">
+            <span class="text-poe-accent">&lt;</span> Latest Guides <span class="text-poe-accent">/&gt;</span>
+          </h2>
+          <p class="section-subtitle">Expert strategies and tips to master PoE 2</p>
+        </div>
+        <a href="/guides/how-to-farm-gold" class="btn-outline mt-4 md:mt-0 text-sm">
+          View All Guides
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedGuides.map((guide) => (
+          <ArticleCard
+            title={guide.frontmatter.title}
+            description={guide.frontmatter.description}
+            href={guide.href}
+            date={guide.frontmatter.date}
+            author={guide.frontmatter.author}
+            category={guide.frontmatter.category}
+            tags={guide.frontmatter.tags}
+            type="guide"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Categories -->
+  <section class="relative py-16 md:py-24 bg-poe-surface/30">
+    <div class="container-custom">
+      <div class="text-center mb-12">
+        <h2 class="section-title">
+          <span class="gradient-text">Explore Content</span>
+        </h2>
+        <p class="section-subtitle">Find exactly what you need</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {categories.map((cat) => (
+          <a
+            href={cat.href}
+            class="card-hover p-6 text-center group"
+          >
+            <div class="text-3xl mb-3">{cat.icon}</div>
+            <h3 class="font-orbitron text-sm font-bold text-white mb-1">
+              {cat.name}
+            </h3>
+            <p class="text-xs text-poe-text-secondary">
+              {cat.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Ad -->
+  <div class="container-custom py-8">
+    <Ad variant="in-content" />
+  </div>
+
+  <!-- CTA Section -->
+  <section class="relative py-16 md:py-20 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-poe-primary/5 rounded-full blur-[100px]"></div>
+    </div>
+    <div class="container-custom relative z-10 text-center">
+      <h2 class="text-2xl md:text-4xl font-orbitron font-bold text-white mb-4">
+        Ready to Conquer <span class="gradient-text">Wraeclast</span>?
+      </h2>
+      <p class="text-poe-text-secondary max-w-xl mx-auto mb-8">
+        Bookmark our guide and check back regularly for updated builds,
+        fresh strategies, and expert tips for Path of Exile 2.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/builds/best-witch-leveling-build" class="btn-primary">
+          Start Your Journey
+        </a>
+        <a href="/about" class="btn-outline">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

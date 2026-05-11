@@ -1,0 +1,107 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-poe-border/20 bg-poe-bg">
+  <!-- Grid decoration -->
+  <div class="h-1 bg-gradient-to-r from-transparent via-poe-primary/50 to-transparent"></div>
+
+  <div class="container-custom py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 bg-gradient-to-br from-poe-primary to-poe-accent rounded-lg flex items-center justify-center font-orbitron font-bold text-sm text-white">
+            P
+          </div>
+          <span class="font-orbitron font-bold text-lg text-white">
+            Exile<span class="text-poe-primary">Guide</span>
+          </span>
+        </div>
+        <p class="text-poe-text-secondary text-sm leading-relaxed">
+          Your ultimate resource for Path of Exile 2 builds, guides, and strategies.
+          Master Wraeclast with expert-tested builds and community knowledge.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="font-orbitron text-sm font-bold text-white uppercase tracking-wider mb-4">
+          Quick Links
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/builds/best-witch-leveling-build" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Builds
+            </a>
+          </li>
+          <li>
+            <a href="/guides/best-beginner-tips" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Guides
+            </a>
+          </li>
+          <li>
+            <a href="/about" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/privacy" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Privacy Policy
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Popular Content -->
+      <div>
+        <h3 class="font-orbitron text-sm font-bold text-white uppercase tracking-wider mb-4">
+          Popular Content
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/builds/best-witch-leveling-build" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Best Witch Build
+            </a>
+          </li>
+          <li>
+            <a href="/builds/best-ranger-leveling-build" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Best Ranger Build
+            </a>
+          </li>
+          <li>
+            <a href="/builds/best-monk-leveling-build" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Best Monk Build
+            </a>
+          </li>
+          <li>
+            <a href="/guides/how-to-farm-gold" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Gold Farming Guide
+            </a>
+          </li>
+          <li>
+            <a href="/guides/fast-xp-guide" class="text-poe-text-secondary hover:text-poe-primary transition-colors text-sm">
+              Fast XP Guide
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-8 border-t border-poe-border/20 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-poe-text-secondary/60 text-xs">
+        © {currentYear} ExileGuide. All rights reserved.
+        This site is not affiliated with Grinding Gear Games.
+      </p>
+      <div class="flex items-center gap-4 text-poe-text-secondary/60 text-xs">
+        <a href="/privacy" class="hover:text-poe-primary transition-colors">Privacy</a>
+        <a href="/about" class="hover:text-poe-primary transition-colors">About</a>
+      </div>
+    </div>
+  </div>
+</footer>

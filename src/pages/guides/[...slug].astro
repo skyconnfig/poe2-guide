@@ -1,0 +1,21 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob("../../content/guides/*.md", { eager: true });
+
+  return Object.entries(modules).map(([path, mod]: [string, any]) => {
+    const slug = path.split(/[/\\]/).pop()?.replace(".md", "") || "page";
+    return {
+      params: { slug },
+      props: { Content: mod.Content, frontmatter: mod.frontmatter, guide: mod, canonical: `https://poe2-guide.vercel.app/guides/${slug}/` },
+    };
+  });
+}
+
+const { Content, guide, canonical } = Astro.props;
+---
+
+<GuideLayout content={guide} canonical={canonical}>
+  <Content />
+</GuideLayout>

@@ -1,0 +1,26 @@
+---
+import BuildLayout from "../../layouts/BuildLayout.astro";
+import Ad from "../../components/Ad.astro";
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob("../../content/builds/*.md", { eager: true });
+
+  return Object.entries(modules).map(([path, mod]: [string, any]) => {
+    const slug = path.split(/[/\\]/).pop()?.replace(".md", "") || "page";
+    return {
+      params: { slug },
+      props: { Content: mod.Content, frontmatter: mod.frontmatter, build: mod, canonical: `https://poe2-guide.vercel.app/builds/${slug}/` },
+    };
+  });
+}
+
+const { Content, build, canonical } = Astro.props;
+---
+
+<BuildLayout content={build} canonical={canonical} techArticle>
+  <!-- Top in-content ad after build summary -->
+  <Ad variant="in-content" />
+
+  <!-- Build Content -->
+  <Content />
+</BuildLayout>
